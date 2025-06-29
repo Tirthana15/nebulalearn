@@ -1,0 +1,2 @@
+
+<?php require_once 'functions.php'; if (!isLoggedIn() || !isTeacher()) { header('HTTP/1.1 403 Forbidden'); echo json_encode(['success' => false, 'message' => 'Access denied']); exit; } $studentId = (int)$_GET['id']; global $conn; // Delete student $stmt = $conn->prepare("DELETE FROM students WHERE id = ?"); $stmt->bind_param("i", $studentId); if ($stmt->execute()) { echo json_encode(['success' => true]); } else { echo json_encode(['success' => false, 'message' => 'Error removing student']); } ?>
